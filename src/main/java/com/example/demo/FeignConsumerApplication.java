@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.clients.CustomErrorHandler;
 import com.example.demo.clients.FeignClient;
 
-import feign.codec.ErrorDecoder;
+import feign.FeignException;
 
 @SpringBootApplication
 @RestController
@@ -31,8 +29,9 @@ public class FeignConsumerApplication {
 		  try {
 		  return feignClient.getHome(); 
 		  }
-		  catch(Exception e) {
-			  return "CAught exeception!!";
+		  
+		  catch(FeignException e) {
+			  return "Generic CAught exeception!!";
 		  }
 	  }
 	 
